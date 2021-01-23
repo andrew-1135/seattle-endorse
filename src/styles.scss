@@ -1,0 +1,100 @@
+/* styles.scss */
+
+/* FONTS */
+// Liberation Sans
+@font-face {
+  font-family: 'liberation-sans';
+  src: url('fonts/liberationsans/liberationsans-regular-webfont.woff2') format('woff2'),
+       url('fonts/liberationsans/liberationsans-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'liberation-sans';
+  src: url('fonts/liberationsans/liberationsans-bold-webfont.woff2') format('woff2'),
+       url('fonts/liberationsans/liberationsans-bold-webfont.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'liberation-sans';
+  src: url('fonts/liberationsans/liberationsans-italic-webfont.woff2') format('woff2'),
+       url('fonts/liberationsans/liberationsans-italic-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'liberation-sans';
+  src: url('fonts/liberationsans/liberationsans-bolditalic-webfont.woff2') format('woff2'),
+       url('fonts/liberationsans/liberationsans-bolditalic-webfont.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* DOCUMENT */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+$body-font: 'liberation-sans', Helvetica, sans-serif;
+$body-font-size: 16px;
+html {
+  font-family: $body-font;
+  font-size: $body-font-size;
+}
+
+.--display-none {
+  display: none !important;
+}
+
+@function rem-to-px($rem) {
+  @return $rem * $body-font-size;
+}
+
+$mq-break-1: rem-to-px(44);
+$mq-break-2: rem-to-px(70);
+
+/* TABLE & SLIDE COL */
+@mixin smallscreen {
+  @media screen and (max-width: $mq-break-1) {
+    @content;
+  }
+}
+
+/* NON-SMALLSCREEN */
+@mixin not-smallscreen {
+  @media screen and (min-width: $mq-break-1 + 1px) {
+    @content;
+  }
+}
+
+// Breakpoint: 44rem/704px
+/* TABLE & SINGLE COL */
+@mixin mediumwidth {
+  @media screen
+      and (min-width: $mq-break-1 + 1px) and (max-width: $mq-break-2) {
+    @content;
+  }
+}
+
+/* NON-WIDESCREEN */
+@mixin not-widescreen {
+  @media screen and (max-width: $mq-break-2) {
+    @content;
+  }
+}
+
+// Breakpoint: 70rem/1120px
+/* TABLE & DOUBLE COL */
+@mixin widescreen {
+  @media screen and (min-width: $mq-break-2 + 1) {
+    @content;
+  }
+}
+
+@import './layout';
+@import './appearance';

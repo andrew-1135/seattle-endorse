@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SeattleEndorse</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="main.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+  <link rel="manifest" href="/favicons/site.webmanifest">
+  <link rel="shortcut icon" href="/favicons/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="/favicons/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+</head>
+<body data-smallscreen-offset="0">
+  <header class="header">
+    <div class="header__display">
+      <div class="header__portrait"></div>
+      <div class="header__text">
+        <p class="header__first-name">Seattle</p>
+        <p class="header__last-name">Endorse</p>
+        <!-- <p class="header__party">.org</p> -->
+      </div>
+    </div>
+    <nav>
+      <button type="button" id="about-button" class="about-button">About</button>
+      <label for="election-select">
+        Election:
+        <select name="election" id="election-select">
+          <option value="20201103" selected data-certified>2020 November General</option>
+          <option value="20191105" data-certified>2019 November General</option>
+          <option value="20181106" data-certified>2018 November General</option>
+          <option value="20171107" data-certified>2017 November General</option>
+        </select>
+      </label>
+    </nav>
+  </header>
+
+  <main>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th> = incumbent</th>
+            <th><a class="table__seatimes-link" href="" target="_blank">Seattle Times</a></th>
+            <th><a class="table__stranger-link" href="">The Stranger</a></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table__end-padding">
+            <th colspan="3"></th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="info-wrapper info-wrapper--double --offscreen">
+
+      <div class="race wrapper wrapper--open">
+        <div class="bar" tabindex="0">
+          <img src="images/custom-icons/triangle.svg"
+            class="bar__expand-icon bar__expand-icon--open">
+          <div class="bar__text">
+            <span class="bar__preposition">For</span> <span class="bar__full-race"></span>
+          </div>
+        </div>
+        <div class="info">
+          <div class="sections">
+            <section class="measure">
+              <div class="measure__name">
+                <div class="measure__type"></div>
+                No.<span class="measure__num"></span>
+              </div>
+              <h3 class="measure__title">Measure title</h3>
+            </section>
+          </div>
+        </div>
+      </div>
+
+      <div class="seatimes wrapper wrapper--open">
+
+        <div class="bar" tabindex="0">
+          <img src="images/custom-icons/triangle.svg" class="bar__expand-icon bar__expand-icon--open">
+          <div class="bar__text">
+            The&nbsp;Seattle&nbsp;Times <span class="bar__concur --display-none">and The&nbsp;Stranger </span><span class="bar__verb">endorses</span> <span class="bar__endorse"></span>
+          </div>
+        </div>
+
+        <div class="info">
+          <div class="endorsement-links">
+            <a class="endorsement-links__primary" target="_blank">The Seattle Times' full <span class="endorsement-links__noun">endorsement</span></a>
+            <a class="endorsement-links__secondary --display-none" target="_blank">The Stranger's full <span class="endorsement-links__noun">endorsement</span></a>
+          </div>
+
+          <article class="pamphlet pamphlet--state">
+            <aside class="pamphlet__warning">
+              <div class="pamphlet__warning__excl-mark">!</div>
+              <div class="pamphlet__warning__warn-text">Candidate submitted information is displayed as printed in the <a class="pamphlet__warning__url" href="" target="_blank">Voters' Pamphlet(s)</a>. No corrections or verifications of fact are made.</div>
+            </aside>
+            <div class="pamphlet__headers">
+              <div class="pamphlet__header">
+                <section class="pamphlet__portrait-section">
+                  <figure class="pamphlet__portrait-figure">
+                    <img src="images/blank.svg" alt="Seattle Times candidate portrait" class="pamphlet__portrait-img">
+                  </figure>
+                  <p class="pamphlet__first-name">First Name</p>
+                  <p class="pamphlet__last-name">Last Name</p>
+                  <p class="pamphlet__party-pref">Party</p>
+                  <p class="pamphlet__president-position --display-none">President</p>
+                  <p class="pamphlet__full-name"></p>
+                  <p class="pamphlet__email"></p>
+                  <p class="pamphlet__web"></p>
+                </section>
+                <div class="pamphlet__pre-statement">
+                  <section class="pamphlet__main-exp-section">
+                    <h4><span class="pamphlet__exp-type">Elected</span> Experience</h4>
+                    <p class="pamphlet__main-exp"></p>
+                  </section>
+                  <section class="pamphlet__other-exp-section">
+                    <h4>Other Professional Experience</h4>
+                    <p class="pamphlet__other-exp"></p>
+                  </section>
+                  <section class="pamphlet__education-section">
+                    <h4>Education</h4>
+                    <p class="pamphlet__education"></p>
+                  </section>
+                  <section class="pamphlet__occupation-section">
+                    <h4>Occupation</h4>
+                    <p class="pamphlet__occupation"></p>
+                  </section>
+                  <section class="pamphlet__comm-service-section">
+                    <h4>Community Service</h4>
+                    <p class="pamphlet__comm-service"></p>
+                  </section>
+                </div>
+              </div>
+
+              <div class="pamphlet__vp__header --display-none">
+                <section class="pamphlet__vp__portrait-section">
+                  <figure class="pamphlet__vp__portrait-figure">
+                    <img src="images/blank.svg" alt="Seattle Times Vice President candidate portrait" class="pamphlet__vp__portrait-img">
+                  </figure>
+                  <p class="pamphlet__vp__first-name">First Name</p>
+                  <p class="pamphlet__vp__last-name">Last Name</p>
+                  <p class="pamphlet__vp__party-pref">Party</p>
+                  <p class="pamphlet__vp__president-position">Vice President</p>
+                </section>
+                <section>
+                  <h4>Elected Experience</h4>
+                  <p class="pamphlet__vp__main-exp"></p>
+                </section>
+                <section>
+                  <h4>Other Professional Experience</h4>
+                  <p class="pamphlet__vp__other-exp"></p>
+                </section>
+                <section>
+                  <h4>Education</h4>
+                  <p class="pamphlet__vp__education"></p>
+                </section>
+                <section>
+                  <h4>Community Service</h4>
+                  <p class="pamphlet__vp__comm-service"></p>
+                </section>
+              </div>
+            </div>
+            <hr class="pamphlet__statement-divider">
+            <section class="pamphlet__statement-section">
+              <h4>Statement</h4>
+              <p></p>
+            </section>
+            <section class="pamphlet__contact-section">
+              <h4>Contact</h4>
+              <p class="pamphlet__contact"></p>
+            </section>
+          </article>
+        </div>
+
+      </div>
+
+      <div class="stranger wrapper">
+
+        <div class="bar" tabindex="0" >
+          <img src="images/custom-icons/triangle.svg" class="bar__expand-icon bar__expand-icon--open">
+          <div class="bar__text">
+            The&nbsp;Stranger <span class="stranger bar__verb">endorses</span> <span class="stranger bar__endorse"></span>
+          </div>
+        </div>
+
+        <div class="stranger info">
+          <div class="endorsement-links">
+            <a class="endorsement-links__primary" target="_blank">The Stranger's full <span class="endorsement-links__noun">endorsement</span></a>
+          </div>
+
+          <article class="pamphlet pamphlet--state">
+            <aside class="pamphlet__warning">
+              <div class="pamphlet__warning__excl-mark">!</div>
+              <div class="pamphlet__warning__warn-text">Candidate submitted information is displayed as printed in the <a class="pamphlet__warning__url" href="" target="_blank">Voters' Pamphlet(s)</a>. No corrections or verifications of fact are made.</div>
+            </aside>
+            <div class="pamphlet__headers">
+              <div class="pamphlet__header">
+                <section class="pamphlet__portrait-section">
+                  <figure class="pamphlet__portrait-figure">
+                    <img src="images/blank.svg" alt="Stranger candidate portrait" class="pamphlet__portrait-img">
+                  </figure>
+                  <p class="pamphlet__first-name">First Name</p>
+                  <p class="pamphlet__last-name">Last Name</p>
+                  <p class="pamphlet__party-pref">Party</p>
+                  <p class="pamphlet__president-position --display-none">President</p>
+                  <p class="pamphlet__full-name"></p>
+                  <p class="pamphlet__email"></p>
+                  <p class="pamphlet__web"></p>
+                </section>
+                <div class="pamphlet__pre-statement">
+                  <section class="pamphlet__main-exp-section">
+                    <h4><span class="pamphlet__exp-type">Elected</span> Experience</h4>
+                    <p class="pamphlet__main-exp"></p>
+                  </section>
+                  <section class="pamphlet__other-exp-section">
+                    <h4>Other Professional Experience</h4>
+                    <p class="pamphlet__other-exp"></p>
+                  </section>
+                  <section class="pamphlet__education-section">
+                    <h4>Education</h4>
+                    <p class="pamphlet__education"></p>
+                  </section>
+                  <section class="pamphlet__occupation-section">
+                    <h4>Occupation</h4>
+                    <p class="pamphlet__occupation"></p>
+                  </section>
+                  <section class="pamphlet__comm-service-section">
+                    <h4>Community Service</h4>
+                    <p class="pamphlet__comm-service"></p>
+                  </section>
+                </div>
+              </div>
+              <div class="pamphlet__vp__header --display-none">
+                <section class="pamphlet__vp__portrait-section">
+                  <figure class="pamphlet__vp__portrait-figure">
+                    <img src="images/blank.svg" alt="Stranger Vice President candidate portrait" class="pamphlet__vp__portrait-img">
+                  </figure>
+                  <p class="pamphlet__vp__first-name">First Name</p>
+                  <p class="pamphlet__vp__last-name">Last Name</p>
+                  <p class="pamphlet__vp__party-pref">Party</p>
+                  <p class="pamphlet__vp__president-position">Vice President</p>
+                </section>
+                <section>
+                  <h4>Elected Experience</h4>
+                  <p class="pamphlet__vp__main-exp"></p>
+                </section>
+                <section>
+                  <h4>Other Professional Experience</h4>
+                  <p class="pamphlet__vp__other-exp"></p>
+                </section>
+                <section>
+                  <h4>Education</h4>
+                  <p class="pamphlet__vp__education"></p>
+                </section>
+                <section>
+                  <h4>Community Service</h4>
+                  <p class="pamphlet__vp__comm-service"></p>
+                </section>
+              </div>
+            </div>
+
+            <hr class="pamphlet__statement-divider">
+            <section class="pamphlet__statement-section">
+              <h4>Statement</h4>
+              <p></p>
+            </section>
+            <section class="pamphlet__contact-section">
+              <h4>Contact</h4>
+              <p class="pamphlet__contact"></p>
+            </section>
+          </article>
+        </div>
+      </div>
+      <div class="info-wrapper__nav-buttons">
+        <button type="button" id="row-up-button" class="--offscreen"></button>
+        <button type="button" id="row-down-button" class="--offscreen"></button>
+        <button type="button" id="row-close-button" class="--offscreen"></button>
+      </div>
+    </div>
+    <div class="loading-overlay">
+      <p class="loading-overlay__text">Loading...</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p class="footer__text">SeattleEndorse.org</p>
+    <div class="footer__button-box">
+      <div class="footer__share">
+        <p>Share</p>
+
+        <a href="javascript:void(0)"
+          class="footer__twitter-icon"></a>
+
+        <a href="javascript:void(0)"
+          class="footer__facebook-icon"></a>
+
+        <button type="button" id="direct-link-button" class="footer__direct-link-button"></button>
+        <button type="button" id="combined-share-button" class="footer__combined-share-button"></button>
+      </div>
+      <div class="footer__back-to-top">
+        <p>Back to top</p>
+        <button type="button" id="back-to-top-button"></button>
+      </div>
+    </div>
+  </footer>
+
+  <div class="about-modal --display-none --transparent">
+    <div class="dialog">
+      <button type="button" id="about-close" class="close-button"></button>
+      <h1 style="color: red;">Not for publication</h1>
+      <p style="margin-bottom: 1rem; display: inline-block; padding: 0.5rem; background-color: rgba(255, 0, 0, 0.2);">This site was developed as a personal project to learn web development and is not intended for publication. There will be no updates for future elections, the share buttons do nothing, and the contact email does not exist.<br>
+      <a href="https://github.com/andrew-1135/seattle-endorse" style="display: inline-flex; align-items: center; margin-top: 0.5rem;"><img src="images/font-awesome/github.svg" alt="Github logo" style="height: 2rem; width: 2rem; margin-right: 0.5rem;">Source code</a></p>
+      <section class="about">
+        <h2>About</h2>
+        <p>Inspired by a <a href="https://old.reddit.com/r/Seattle/comments/jd03ld/combined_seattle_times_and_stranger_endorsements/" target="_blank">Reddit post</a>, SeattleEndorse.org <span style="text-decoration: line-through;">was created</span> will not actually be created to help Seattle area voters compare endorsements from the more moderate <a href="https://www.seattletimes.com/" target="_blank">Seattle Times</a> and the proudly progressive <a href="https://www.thestranger.com/" target="_blank">Stranger</a>, with excerpts from Washington State and King County Voters' Pamphlets included for convenience.</p>
+        <p>Please consider supporting local journalism by <a href="https://www.seattletimes.com/subscribe/signup-offers/" target="_blank">subscribing</a> to The Seattle Times and <a href="https://www.thestranger.com/contribute" target="_blank">donating</a> to The Stranger.</p>
+        <p>SeattleEndorse.org is not affiliated with The Seattle Times, The Stranger, any government agency, or any political organization.</p>
+      </section>
+      <div class="share-and-contact">
+        <section class="share">
+          <h2>Share</h2>
+          <ul class="share__wrapper">
+            <li class="icon-wrapper">
+              <ul>
+                <li class="icon-wrapper__twitter-wrapper">
+                  <a href="javascript:void(0)"
+                    class="icon-wrapper__twitter-icon"></a>
+                  <p>Twitter</p>
+                </li>
+                <li class="icon-wrapper__facebook-wrapper">
+                  <a href="javascript:void(0)"
+                    class="icon-wrapper__facebook-icon"></a>
+                  <p>Facebook</p>
+                </li>
+              </ul>
+            </li>
+            <li class="url-wrapper">
+              <!-- <label for="about-share-url">URL</label> -->
+              <input type="text" id="about-url" class="url-wrapper__url-input"
+                value="https://SeattleEndorse.org" readonly>
+              <button type="button" id="about-copy-url-button" class="url-wrapper__copy-url-button">Copy</button>
+            </li>
+          </ul>
+        </section>
+        <section class="contact">
+          <h2>Contact</h2>
+          <div class="contact__icon-wrapper">
+            <a href="javascript:void(0)"
+              class="contact__envelope-icon"></a>
+            <p>comments@SeattleEndorse.org</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div class="direct-link-modal --display-none --transparent">
+    <div class="dialog">
+      <button type="button" id="direct-link-close" class="close-button"></button>
+      <section class="direct-link">
+        <h2>Direct link</h2>
+        <div class="url-wrapper">
+          <!-- <label for="direct-link-url">URL</label> -->
+          <input type="text" id="direct-link-url" class="url-wrapper__url-input"
+            value="https://SeattleEndorse.org" readonly>
+          <button type="button" id="direct-link-copy-url-button"
+            class="url-wrapper__copy-url-button">Copy</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="combined-share-modal --display-none --transparent">
+    <div class="dialog">
+      <button type="button"
+        id="combined-share-close" class="close-button"></button>
+      <section class="share">
+        <h2>Share</h2>
+        <ul class="share__wrapper">
+          <li class="icon-wrapper">
+            <ul>
+              <li class="icon-wrapper__twitter-wrapper">
+                <a href="javascript:void(0)"
+                  class="icon-wrapper__twitter-icon"></a>
+                <p>Twitter</p>
+              </li>
+              <li class="icon-wrapper__facebook-wrapper">
+                <a href="javascript:void(0)"
+                  class="icon-wrapper__facebook-icon"></a>
+                <p>Facebook</p>
+              </li>
+            </ul>
+          </li>
+          <li class="url-wrapper">
+            <!-- <label for="combined-share-url">URL</label>  -->
+            <input type="text" id="combined-share-url" class="url-wrapper__url-input"
+              value="https://SeattleEndorse.org" readonly>
+            <button type="button" id="combined-share-copy-url-button" class="url-wrapper__copy-url-button">Copy</button>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,962 @@
+/* _appearance.scss */
+
+/* DOCUMENT */
+.--transparent {
+  opacity: 0;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+%external-link-icon {
+  a[href]::after {
+    content: "";
+    padding-right: 1.3rem;
+    background:
+      url("images/font-awesome/external-link-alt.svg") no-repeat right center;
+    background-size: 1rem;
+  }
+}
+
+/* COLORS */
+$wa-green: rgb(0, 132, 87);
+// $np-cand: hsla(160, 100%, 26%, 0.5);
+
+$main-bg: rgb(250,250,250);
+$border-gray: rgb(190,190,190);
+$hover-white: rgba(white, 0.15);
+$active-white: rgba(white, 0.25);
+$dialog-dark: rgba(black, 0.5);
+$dialog-darker: rgba(black, 0.75);
+
+$table-main-header: black;
+$table-sub-header: rgb(120, 120, 120);
+$table-dark-stripe: rgb(230,230,230);
+
+$dem-cand: rgb(186, 223, 247);
+$rep-cand: rgb(236, 178, 180);
+$spp-cand: rgb(199, 140, 142);
+
+$dem-blue: hsl(204, 81%, 40%);
+$rep-red: hsl(358, 61%, 49%);
+// $spp-red: hsl(358, 70%, 33%);
+
+:not(.--winner) {
+  &.--democratic-party {
+    background: $dem-cand;
+  }
+  &.--republican-party {
+    background: $rep-cand;
+  }
+  // &.--nonpartisan {
+  //   background: $np-cand;
+  // }
+  &.--seattle-peoples-party {
+    background: $spp-cand;
+  }
+}
+
+.--winner {
+
+  &.--democratic-party {
+    background: $dem-blue;
+  }
+  &.--republican-party {
+    background: $rep-red;
+  }
+  &.--nonpartisan,
+  &.--measure {
+    background: $wa-green;
+  }
+}
+
+/* HEADER */
+.header {
+  padding: 1rem;
+  background-color: $wa-green;
+  color: white;
+
+  &__portrait {
+    margin-right: 1rem;
+    border: 5px solid white;
+  }
+  &__first-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  &__last-name {
+    @include smallscreen {
+      font-size: 2.5rem;
+      line-height: 2rem;
+    }
+    @include not-smallscreen {
+      line-height: 3rem;
+      font-size: 3.5rem;
+    }
+    font-weight: bold;
+  }
+  &__party {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+}
+nav {
+  @include smallscreen {
+    margin-top: 2rem;
+  }
+  @include not-smallscreen {
+    margin-left: 3rem;
+    margin-bottom: 1rem;
+  }
+}
+#about-button {
+  margin-bottom: 2rem;
+  border: 2px solid white;
+  padding: 0.5rem;
+  background: none;
+  color: white;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+  &:hover,
+  &:focus{
+    background: $active-white;
+  }
+  &:active {
+    color: $wa-green;
+    background: white;
+  }
+}
+.election-select {
+  @include smallscreen {
+    margin-top: 2rem;
+  }
+}
+
+/* MAIN */
+main {
+  padding: 0.5rem;
+  background-color: $main-bg;
+}
+
+/* TABLE */
+.table-wrapper {
+  @include not-smallscreen {
+    margin-right: 0.5rem;
+  }
+}
+table {
+  border-collapse: collapse;
+  border: 2px solid $border-gray;
+  font-size: 0.8rem;
+}
+
+.table__main-header {
+  border-left: none;
+  border-right: none;
+  // background: $table-main-header;
+  padding: 0.75rem;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.table__sub-header {
+  border-left: none;
+  border-right: none;
+  background-color: $table-sub-header;
+  color: white;
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+td, th {
+  border: 1px solid $border-gray;
+  background-color: white;
+  line-height: 1em;
+}
+
+th {
+  padding: 0.5em 0.5em;
+}
+
+td {
+  @include smallscreen {
+    padding: 1em 0.5em;
+  }
+  @include not-smallscreen {
+    padding: 0.5em 0.5em;
+  }
+  text-align: center;
+}
+
+tr:nth-child(odd) td {
+  background-color: $table-dark-stripe;
+}
+
+thead th {
+  &:first-of-type::before { // Incumbent header
+    content: "";
+    padding-left: 1.3rem;
+    background: url("images/custom-icons/shield.svg") no-repeat 0% 50%;
+    background-size: 0.8rem 0.8rem;
+  }
+
+  &:not(:first-child) { // ST + Stranger headers
+    // @extend %external-link-icon;
+    a {
+      display: block;
+      padding-right: 1rem;
+      background:
+        url("images/font-awesome/external-link-alt.svg") no-repeat right center;
+      background-size: 0.8rem 0.8rem;
+      font-size: 1rem;
+      color: black;
+      text-decoration: none;
+
+      &:hover,
+      &:focus {
+        background-color: rgba($wa-green, 0.5);
+      }
+    }
+  }
+}
+
+@function main-header-gradient($opacity) {
+  @return linear-gradient(
+    to right,
+    rgba(black, $opacity / 2) 0%,
+    rgba(black, $opacity) 35%,
+    rgba(black, $opacity) 65%,
+    rgba(black, $opacity / 2) 100%,
+  );
+}
+.table__main-header {
+  &.federal {
+    $federal-opacity: 0.85;
+    background:
+      main-header-gradient($federal-opacity),
+      url("images/Flag_of_the_United_States.svg");
+    background-size: cover;
+    background-position: center 40%;
+  }
+  &.wa-state {
+    $wa-opacity: 0.85;
+    background:
+    main-header-gradient($wa-opacity),
+      url("images/Flag_of_Washington.svg");
+    background-size: cover;
+    background-position: center center;
+  }
+  &.king-county {
+    $king-opacity: 0.85;
+    background:
+      main-header-gradient($king-opacity),
+      url("images/Flag_of_King_County\,_Washington.svg");
+    background-size: cover;
+    background-position: center 15%;
+  }
+  &.seattle {
+    $seattle-opacity: 0.85;
+    background:
+      main-header-gradient($seattle-opacity),
+      url("images/Flag_of_Seattle.svg");
+    background-size: cover;
+    background-position: center center;
+  }
+}
+
+%subheader-icon {
+  content: "";
+  display: inline-block;
+  vertical-align: top;
+  filter: invert(100%);
+}
+%small-icon {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.25rem;
+}
+%med-icon {
+  width: 1.2rem;
+  height: 1rem;
+  margin-right: 0.35rem;
+}
+.table__sub-header {
+  &.executive::before {
+    @extend %subheader-icon;
+    // @extend %small-icon;
+    width: 1.2rem;
+    height: 0.9rem;
+    background: url("images/font-awesome/user.svg") no-repeat left center;
+  }
+
+  &.congress,
+  &.legislature  {
+    &::before {
+      @extend %subheader-icon;
+      @extend %small-icon;
+      background: url("images/font-awesome/landmark.svg") no-repeat left center;
+    }
+  }
+
+  &.county-council,
+  &.city-council {
+    &::before {
+      @extend %subheader-icon;
+      @extend %med-icon;
+      background: url("images/font-awesome/users.svg") no-repeat left center;
+    }
+  }
+
+  &.judiciary::before {
+    @extend %subheader-icon;
+    @extend %med-icon;
+    background:
+      url("images/font-awesome/balance-scale.svg") no-repeat left center;
+  }
+
+  &.measures::before {
+    @extend %subheader-icon;
+    @extend %small-icon;
+    background: url("images/font-awesome/edit.svg") no-repeat left center;
+  }
+
+  &.port-of-seattle::before {
+    @extend %subheader-icon;
+    @extend %small-icon;
+    background: url("images/font-awesome/anchor.svg") no-repeat left center;
+  }
+
+  &.schools::before {
+    @extend %subheader-icon;
+    @extend %med-icon;
+    background:
+      url("images/font-awesome/graduation-cap.svg") no-repeat left center;
+  }
+}
+
+tr:hover td:first-child {
+  background-color: black;
+  color: white;
+}
+
+.table__row--selected {
+  td:first-child {
+    font-weight: bold;
+    background-color: black;
+    color: white;
+  }
+}
+
+td p {
+  display: inline-block; // Stops shield from going all the way right
+}
+
+td.--incumbent p {
+  padding: 0.1rem 1.2rem 0.1rem 0;
+  background: url("images/custom-icons/shield.svg") no-repeat right center;
+  background-size: 0.8rem 0.8rem;
+}
+td.--measure.--positive p {
+  padding: 0.1rem 1.3rem 0.1rem 0;
+  background: url("images/custom-icons/green-check.svg") no-repeat right center;
+  background-size: 1rem 1rem;
+}
+td.--measure.--negative p {
+  padding: 0.1rem 1.1rem 0.1rem 0;
+  background: url("images/custom-icons/red-x.svg") no-repeat right center;
+  background-size: 0.8rem 0.8rem;
+} // Needs some extra top/bottom padding for icons to show fully
+
+td.--winner {
+  color: white;
+  font-weight: bold;
+  &.--incumbent p {
+    background: url("images/custom-icons/shield-white.svg")
+      no-repeat right center;
+    background-size: 0.8rem 0.8rem;
+  }
+}
+
+.table__end-padding th {
+  padding: 2rem 0;
+  background-image: url("images/custom-icons/x-gray.svg");
+} // Makes it easier to view info when scrolled all the way down
+
+/* INFO */
+$slide-time: 0.2s;
+.info-wrapper {
+  @include smallscreen {
+    transition: left $slide-time;
+    border: none;
+    background: white;
+
+    &.--offscreen {
+      transition: $slide-time;
+    }
+  }
+}
+
+$info-transition-time: 75ms;
+.bar {
+  padding: 0.5em 0;
+  background-color:black;
+  line-height: 1.4rem;
+  color: white;
+  &__expand-icon {
+    margin: 0 0.3rem;
+    filter: invert(100%);
+    transition: transform $info-transition-time linear;
+    user-select: none;
+    &--open {
+      transform: rotate(90deg);
+    }
+  }
+  &__text {
+    padding: 0 2rem;
+    user-select: none;
+  }
+
+  &:hover,
+  &:focus {
+    .bar__expand-icon {
+      filter: none;
+      background-color: white;
+      border-radius: 50%;
+    }
+  }
+
+}
+.race .bar__full-race {
+  font-weight: bold;
+}
+.seatimes .bar,
+.stranger .bar {
+  &.--nonpartisan:not(.--winner),
+  &.--measure:not(.--winner) {
+    background-color: lightgrey;
+  }
+  &:not(.--winner) {
+    color: black;
+    img {
+      filter: none;
+    }
+  }
+  &__endorse {
+    white-space: nowrap;
+    font-weight: bold;
+  }
+  @include smallscreen {
+    &.--incumbent .bar__endorse::after {
+      content: "*";
+    }
+  }
+}
+
+.info {
+  transition: opacity $info-transition-time;
+  background-color: white;
+
+  &--slow-speed {
+    transition: opacity ($info-transition-time * 2);
+  }
+
+  &--row-change {
+    transition: none;
+    opacity: 0;
+  }
+
+  &--collapsed {
+    transition: none;
+    opacity: 0;
+  }
+
+  &:not(&--collapsed) {
+    @include smallscreen {
+      padding: 0 1rem;
+    }
+    @include not-smallscreen {
+      padding: 0 2rem;
+    }
+  }
+
+}
+
+.race .info {
+  @include not-smallscreen {
+    border-left: 2px solid $border-gray;
+  }
+
+  p:not(:last-child) {
+    margin-bottom: 0.75rem;
+  }
+
+  .sections { // Not type selector!
+    margin: 1rem 0;
+    @include widescreen {
+      column-gap: 2em;
+      row-gap: 0.75em;
+    }
+
+    .measure ~ section p {
+      font-size: 0.9rem;
+    } // Not measure info section
+  }
+
+  section {
+    @include smallscreen {
+      padding-left: 10px;
+      border-left: 5px solid $border-gray;
+    }
+  }
+  section:not(.--display-none) ~ section:not(.--display-none) {
+    @include not-widescreen { // Second shown section
+      margin-top: 0.75rem;
+    }
+  }
+}
+.seatimes .info {
+  @include not-smallscreen {
+    border-left: 2px solid $border-gray;
+  }
+}
+.stranger .info {
+  @include not-smallscreen {
+    border-bottom: 2px solid $border-gray;
+  }
+  @include mediumwidth {
+    border-left: 2px solid $border-gray;
+  }
+}
+
+.info-wrapper {
+  @include not-smallscreen {
+    &--single {
+      .seatimes .info {
+        border-bottom: 2px solid $border-gray;
+      }
+      .stranger .info {
+        border-left: 2px solid $border-gray;
+      }
+    }
+  }
+
+  @include widescreen {
+    &--measure {
+      .stranger .info {
+        border-left: 2px solid $border-gray;
+      }
+    }
+    &--double:not(&--measure) {
+      .seatimes .info {
+        border-bottom: 2px solid $border-gray;
+      }
+    }
+
+  }
+}
+
+.measure__name {
+  margin-bottom: 0.75rem;
+  font-weight: bold;
+}
+.measure__type {
+  font-size: 0.8rem;
+}
+.measure__num {
+  line-height: 5rem;
+  font-size: 6rem;
+}
+
+
+.endorsement-links {
+  margin: 1rem 0;
+
+  @extend %external-link-icon;
+
+  &__secondary {
+    @include not-widescreen {
+      margin-top: 1rem;
+    }
+    @include widescreen {
+      margin-left: 2rem;
+    }
+  }
+}
+
+.pamphlet {
+  margin: 1rem 0;
+
+  &__warning {
+    margin-bottom: 1rem;
+    border: 2px solid black;
+    padding: 1rem;
+
+    @extend %external-link-icon;
+
+    &__excl-mark {
+      margin-right: 1rem;
+      border: 2px solid black;
+      border-radius: 50%;
+      line-height: 2rem;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      user-select: none;
+    }
+  }
+
+  &__vp__header {
+    @include not-widescreen {
+      margin-top: 1rem;
+    }
+  }
+
+  &__portrait-figure,
+  &__vp__portrait-figure {
+    padding-right: 1rem;
+    padding-bottom: 0.5rem;
+  }
+
+  h4 {
+    margin-top: 0.75rem;
+  }
+
+  &__pre-statement,
+  &__vp__portrait-section ~ section,
+  &__statement-section,
+  &__comm-service-section,
+  &__contact-section {
+    p {
+      font-size: 0.9rem;
+      text-underline-offset: 1px; // Limited compatibility
+    }
+    p:not(:last-child):not(:only-child) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__first-name,
+  &__vp__first-name {
+    white-space: nowrap;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  &__last-name,
+  &__vp__last-name {
+    line-height: 100%;
+    font-weight: bold;
+  }
+  &__president-position,
+  &__vp__president-position {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+
+  &__full-name {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__statement-divider {
+    @include not-widescreen {
+      margin-top: 1rem;
+    }
+    @include widescreen {
+      margin-top: 0.5rem;
+    }
+    margin-bottom: 1rem;
+  }
+
+  &__statement-section ul {
+    padding-left: 1rem;
+    li {
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+.pamphlet__last-name,
+.pamphlet__vp__last-name {
+  @include smallscreen {
+    font-size: 2rem;
+  }
+  @include mediumwidth {
+    font-size: 4.8vw;
+  }
+}
+
+.info-wrapper {
+  @include widescreen {
+    &--double {
+      .pamphlet__last-name,
+      .pamphlet__vp__last-name {
+        font-size: #{'min(3.5rem, calc(3.5vw - 12px))'};
+      }
+    }
+
+    &--single {
+      .pamphlet {
+        &__headers--single .pamphlet__pre-statement {
+          column-gap: 2em;
+        }
+
+        &__last-name,
+        &__vp__last-name {
+          font-size: 3.5rem;
+        }
+
+        &__statement-section {
+          padding-top: 1em;
+          // column-count: 2;
+          column-width: 20em;
+          column-gap: 2em;
+
+          h4 {
+            margin-top: -1em;
+            line-height: 1em;
+          }
+        }
+      }
+    }
+
+  }
+}
+
+.info-wrapper__nav-buttons {
+  margin-top: auto; // justify-self: end, if it existed
+}
+
+#row-up-button,
+#row-down-button,
+#row-close-button {
+  border: none;
+  background-color: white;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 1.4rem 1.4rem;
+  filter: invert(100%);
+}
+#row-up-button {
+  border-right: 1px solid black;
+  background-image: url("images/bootstrap-icons/chevron-up.svg");
+}
+#row-down-button {
+  border-left: 1px solid black;
+  @include smallscreen {
+    border-right: 1px solid black;
+  }
+  background-image: url("images/bootstrap-icons/chevron-down.svg");
+}
+#row-close-button {
+  border-left: 1px solid black;
+  background-image: url("images/bootstrap-icons/x.svg");
+  background-size: 1.6rem 1.6rem;
+}
+
+.loading-overlay {
+  padding-top: 10rem;
+  transition: opacity 100ms;
+  background: $dialog-darker;
+
+  font-size: 2rem;
+  text-align: center;
+  color: white;
+}
+
+/* FOOTER */
+.footer {
+  background-color: $wa-green;
+
+  &__text {
+    color: white;
+    line-height: 4rem;
+    text-align: center;
+  }
+
+  &__button-box {
+    color: white;
+  }
+  &__share {
+    background: $hover-white;
+    @include smallscreen {
+      background: none;
+    }
+
+    p {
+      margin: 0.5rem;
+      line-height: 2rem;
+    }
+    a,
+    button {
+      margin: 0.5rem 0.25rem;
+      &:first-child {
+        margin-left: 0.5rem;
+      }
+      &:last-child {
+        margin-right: 0.5rem;
+      }
+      // background-color: white;
+      border: none;
+      background-repeat: no-repeat;
+      background-size: 90% 90%;
+      filter: invert(100%);
+    }
+    button {
+      background: none;
+      background-repeat: no-repeat;
+      background-position: center center;
+      &:hover {
+        filter: none;
+      }
+    }
+  }
+
+  // https://codepen.io/sosuke/pen/Pjoqqp
+  &__twitter-icon {
+    background-image: url("images/font-awesome/twitter.svg");
+    // Twitter blue: #1da1f2
+    &:hover {
+      filter:
+      invert(47%)
+      sepia(74%)
+      saturate(903%)
+      hue-rotate(173deg)
+      brightness(97%)
+      contrast(96%);
+    }
+  }
+  &__facebook-icon {
+    background-image: url("images/font-awesome/facebook-f.svg");
+    // Facebook blue: #1778f2
+    &:hover {
+      filter:
+      invert(34%)
+      sepia(54%)
+      saturate(3518%)
+      hue-rotate(202deg)
+      brightness(98%)
+      contrast(93%);
+    }
+  }
+}
+#direct-link-button {
+  background-image: url("images/font-awesome/link.svg");
+  background-position: top center;
+  background-size: 90% 90%;
+}
+#combined-share-button {
+  background-image: url("images/font-awesome/share-alt.svg");
+  background-size: 90% 90%;
+  &:active {
+    filter: none;
+  }
+
+  &__back-to-top {
+    // background: $hover-white;
+    @include smallscreen {
+      background: none;
+    }
+
+    p {
+      margin-left: 0.5rem;
+    }
+
+  }
+}
+#back-to-top-button {
+  margin: 1rem;
+  margin-right: 0;
+  border: none;
+  padding: 0.2rem;
+  background: white;
+  background-image: url("images/bootstrap-icons/chevron-double-up.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 90% 90%;
+  filter: invert(100%);
+}
+
+/* DIALOGS */
+.about-modal,
+.direct-link-modal,
+.combined-share-modal {
+  transition: opacity 100ms;
+  background: $dialog-dark;
+
+  ul {
+    list-style: none;
+  }
+}
+.dialog {
+  margin: 0.5rem;
+  border: 2px solid $border-gray;
+  padding: 1rem 1rem;
+  background: white;
+}
+.close-button {
+  border: none;
+  background: url("images/custom-icons/x-black.svg") no-repeat center center;
+  &:hover,
+  &:active {
+    background: url("images/custom-icons/x-red.svg") no-repeat center center;
+  }
+}
+.about-modal {
+  .about p {
+    margin-bottom: 1rem;
+  }
+  .share {
+    margin-bottom: 1rem;
+    @include smallscreen {
+      margin-right: 2rem;
+    }
+  }
+  .contact {
+    @include smallscreen {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.icon-wrapper ul {
+  margin-bottom: 1rem;
+}
+.url-wrapper {
+  // label {
+  //   line-height: 1.5rem;
+  // }
+  &__url-input {
+    margin: 0 0.2rem;
+    padding: 0.1rem 0.2rem;
+  }
+  &__copy-url-button {
+    border: 2px solid $wa-green;
+    padding: 0.1rem  0.2rem;
+    background-color: $wa-green;
+    color: white;
+    font-size: 0.8rem;
+  }
+}
+.icon-wrapper__twitter-icon {
+  margin: 0.5rem;
+  background:
+    url("images/Twitter_Social_Icon_Circle_Color.svg") no-repeat center center;
+  background-size: 100% 100%;
+
+}
+.icon-wrapper__facebook-icon {
+  margin: 0.5rem;
+  background:
+    url("images/f_logo_RGB-Hex-Blue_512.webp") no-repeat center center;
+  background-size: 100% 100%;
+}
+.contact__envelope-icon {
+  margin: 0.5rem;
+  background:
+    url("images/font-awesome/envelope-square.svg") no-repeat center center;
+  background-size: 100% 100%;
+}

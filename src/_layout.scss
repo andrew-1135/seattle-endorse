@@ -1,0 +1,529 @@
+/* layout.scss */
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @include smallscreen {
+    flex-direction: column;
+  }
+
+  &__display {
+    display: flex;
+  }
+  &__portrait {
+    @include smallscreen {
+      width: 96px;
+      height: 112px;
+    }
+    @include not-smallscreen {
+      width: 150px;
+      height: 175px;
+    }
+    flex-shrink: 0;
+  }
+  &__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    @include smallscreen {
+      height: 112px;
+    }
+    @include not-smallscreen {
+      height: 175px;
+    }
+  }
+}
+nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#about-button {
+  width: 5rem;
+}
+
+/* MAIN */
+main {
+  position: relative;
+  @include smallscreen {
+    min-height: 15rem;
+  }
+
+  display: flex;
+  justify-content: center;
+}
+
+/* TABLE */
+.table-wrapper {
+  min-width: 20rem;
+
+  @include mediumwidth {
+    flex: 0 1;
+  }
+  @include widescreen {
+    flex-shrink: 0;
+  }
+}
+
+.table__end-padding {
+  @include smallscreen {
+    display: none;
+  }
+}
+
+/* INFO */
+.info-wrapper {
+  @include smallscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 10;
+
+    &.--offscreen {
+      left: 100vw;
+      visibility: hidden;
+    }
+  }
+
+  @include not-smallscreen {
+    position: sticky;
+    top: 0.5rem;
+
+    flex: 1;
+    align-self: flex-start;
+  }
+
+  @include mediumwidth {
+    height: #{'calc(100vh - 1rem)'};
+  }
+  @include widescreen {
+    max-height: #{'calc(100vh - 1rem)'};
+  }
+
+  @include not-widescreen {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @include widescreen {
+    max-width: 100rem;
+
+    &--double:not(&--measure) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: minmax(0, auto) 1fr;
+      grid-template-areas:
+      "race race"
+      "seatimes stranger";
+
+      .race.wrapper {
+        grid-area: race;
+      }
+      .seatimes.wrapper {
+        grid-area: seatimes;
+      }
+      .stranger.wrapper {
+        grid-area: stranger;
+      }
+    }
+
+    &--single {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &--single,
+    &--measure {
+      .bar, .info {
+        max-width: 80rem;
+      }
+    }
+
+  }
+}
+
+.wrapper {
+  @include not-widescreen {
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+    &:not(&--open) {
+      flex-shrink: 0; // Stops bars from being squished
+    }
+  }
+}
+.seatimes.wrapper,
+.stranger.wrapper {
+  @include widescreen {
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+  }
+}
+
+.bar {
+  @include widescreen {
+    flex-shrink: 0; // Required for bar height normalize
+  }
+
+  &__expand-icon {
+    float: left;
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+}
+
+.info {
+  overflow-y: scroll;
+
+  &--collapsed {
+    height: 0;
+    overflow: hidden;
+  }
+}
+
+.race .info .sections {
+  @include widescreen {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(auto, 30em));
+  }
+}
+
+.endorsement-links {
+  &--combined {
+    @include widescreen {
+      display: flex;
+    }
+  }
+  &__primary,
+  &__secondary {
+    display: block;
+  }
+}
+
+.pamphlet {
+  &--state {
+    .pamphlet {
+      &__full-name,
+      &__email,
+      &__web {
+        display: none;
+      }
+    }
+  }
+
+  &--county {
+    .pamphlet {
+      &__first-name,
+      &__last-name,
+      &__party-pref,
+      &__main-exp-section,
+      &__other-exp-section,
+      &__comm-service-section,
+      &__contact-section {
+        display: none;
+      }
+    }
+  }
+
+  &__warning {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__excl-mark {
+      flex-shrink: 0;
+      box-sizing: content-box;
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+
+  &__portrait-figure,
+  &__vp__portrait-figure {
+    float: left;
+    max-width: 35%;
+
+  }
+  &__portrait-img,
+  &__vp__portrait-img {
+    max-width: 100%;
+  }
+
+  &__vp__header,
+  &__statement-section,
+  &__statement-divider {
+    clear: both;
+  }
+
+  &__pre-statement,
+  &__vp__portrait-section + section {
+    @include smallscreen {
+      clear: both;
+    }
+  }
+
+  &__headers--single + .pamphlet__statement-divider { // Not president
+    @include not-widescreen {
+      display: none;
+    }
+  }
+}
+
+.info-wrapper {
+  &--double .pamphlet__headers--single + .pamphlet__statement-divider {
+    @include widescreen { // Split endorsements, not president
+      display: none;
+    }
+  }
+
+  &--single { // Single endorsement
+    @include widescreen {
+      .pamphlet {
+        &__headers--single { // Not president
+          .pamphlet__portrait-figure,
+          .pamphlet__vp__portrait-figure {
+            max-width: 20%;
+          }
+        }
+
+        &__headers--double { // President
+          display: flex;
+          justify-content: space-between;
+
+          .pamphlet__header,
+          .pamphlet__vp__header {
+            width: 48%;
+          }
+
+          .pamphlet__pre-statement,
+          .pamphlet__vp__portrait-section ~ section {
+            clear: both;
+          }
+        }
+
+        &__statement-section {
+          max-width: 60rem;
+        }
+
+        &--state .pamphlet__headers--single .pamphlet__pre-statement{
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(25em, 1fr));
+        }
+        &--county {
+          .pamphlet__pre-statement{
+            max-width: 50rem;
+            // Includes portrait width
+          }
+          .pamphlet__statement-divider {
+            visibility: hidden;
+          }
+        }
+
+      }
+    }
+  }
+
+}
+
+.info-wrapper__nav-buttons {
+  @include not-widescreen {
+    flex-shrink: 0;
+    height: 2rem;
+    display: grid;
+  }
+  @include widescreen {
+    display: none;
+  }
+
+  @include smallscreen {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @include mediumwidth {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+#row-close-button {
+  @include not-smallscreen {
+    display: none;
+  }
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+
+  &__text {
+    position: sticky;
+    top: 10rem;
+  }
+}
+
+/* FOOTER */
+.footer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 4rem;
+
+  &__text {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 15rem;
+  } // Center relative to window
+
+  &__button-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4rem;
+  }
+
+  &__share {
+    display: flex;
+    p {
+      height: 2rem;
+    }
+    a, button {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+
+  &__back-to-top {
+    display: flex;
+    align-items: center;
+    height: 3rem;
+  }
+
+  @include not-widescreen {
+    &__share {
+      position: absolute;
+      left: 0.5rem;
+    }
+
+    &__back-to-top {
+      position: absolute;
+      right: 0.5rem;
+    }
+  }
+  // JS for widescreen width
+
+  @include smallscreen {
+    &__share p, // Share label
+    &__twitter-icon,
+    &__facebook-icon,
+    &__direct-link-button,
+    &__back-to-top p { // Back to top label
+      display: none;
+    }
+  }
+
+  @include widescreen {
+    &__button-box {
+      min-width: $mq-break-2 - rem-to-px(3); // Compensate for scrollbar
+    }
+  }
+}
+
+#combined-share-button {
+  @include not-smallscreen {
+    display: none;
+  }
+}
+
+#back-to-top-button {
+  width: 2rem;
+  height: 2rem;
+}
+
+/* DIALOGS */
+.about-modal,
+.direct-link-modal,
+.combined-share-modal {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .dialog {
+    position: relative;
+    max-width: 40rem;
+    max-height: #{'calc(100vh - 1rem)'};
+    overflow: auto;
+  }
+}
+.dialog .close-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 1.6rem;
+  height: 1.6rem;
+}
+.about-modal {
+  .share-and-contact {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .contact__icon-wrapper {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .contact__envelope-icon {
+    display: inline-block;
+    width: 5rem;
+    height: 5rem;
+  }
+}
+.icon-wrapper ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  } // Icon + label
+
+  a {
+    display: block;
+    width: 5rem;
+    height: 5rem;
+  }
+}
+.url-wrapper {
+  display: flex;
+
+  // label {
+  //   flex: 0 1;
+  // }
+}
+.url-wrapper__url-input {
+  @include not-smallscreen {
+    width: 12rem;
+  }
+  height: 1.5rem;
+}
+.url-wrapper__copy-url-button {
+  height: 1.5rem;
+}
