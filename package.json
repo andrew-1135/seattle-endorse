@@ -4,8 +4,7 @@
   "description": "Endorsements from The Seattle Times and The Stranger",
   "private": true,
   "scripts": {
-    "test_broken": "python test/export_main.py && NODE_ENV=test wtr test/main.test.js --node-resolve",
-    "test": "python test/export_main.py && wtr test/main.test.js --node-resolve",
+    "test": "python test/export_main.py && wtr test/main.test.js",
     "start": "snowpack dev",
     "svgo-prebuild": "svgo -f src/images && svgo -f src/images/custom-icons",
     "py-postbuild": "python postbuild.py",

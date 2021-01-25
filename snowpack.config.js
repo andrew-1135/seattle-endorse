@@ -10,13 +10,13 @@ module.exports = {
     /* ... */
     src: "/",
     "scrape/dist_data": "/data",
+    test: "/test",
   },
   plugins: [
     /* ... */
     "@snowpack/plugin-sass",
     "@snowpack/plugin-postcss",
     "@snowpack/plugin-webpack",
-    // "@snowpack/web-test-runner-plugin",
   ],
   packageOptions: {
     /* ... */

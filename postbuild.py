@@ -6,6 +6,7 @@ UNUSED_FILES = [
 ]
 UNUSED_DIRS = [
     "_snowpack",
+    "test",
 ]
 
 def main():
