@@ -3,3 +3,4 @@ scrape/*/*/
 !scrape/dist_data/*
 build/
 coverage/
+test/exported-main.js

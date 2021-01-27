@@ -3,32 +3,40 @@ import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light-border.css";
 
 /* GLOBAL CONSTANT VALUES */
-const EXEC_ABBR = new Map(Object.entries({
-  "Lt.": "Lieutenant",
-  "Sec.": "Secretary",
-  "Comm.": "Commissioner",
-  "Pub.": "Public",
-  "Sup.": "Superintendent",
-  "Instr.": "Instruction",
-  "Dir.": "Director",
-  "Elec.": "Elections",
-  "Atty.": "Attorney",
-  "Prsc.": "Prosecuting",
-  "Exec.": "Executive",
-}));
-const MEASURE_ABBR = new Map(Object.entries({
-  "Ref.": "Referendum Measure No.",
-  ESJR: "Engrossed Senate Joint Resolution No.",
-  SJR: "Senate Joint Resolution No.",
-  Charter: "Charter Amendment No.",
-  "Prop.": "Proposition No.",
-  "Init.": "Initiative Measure No.",
-}));
-const STRANGER_STATE = { SEPARATE: 1, NONE: 2, COMBINED: 3 }; // Enum
 const POS_MEASURE_VERBS = new Set(["Approve", "Yes"]);
 const NEG_MEASURE_VERBS = new Set(["Reject", "No"]);
 const MEASURE_VERBS = new Set([...POS_MEASURE_VERBS, ...NEG_MEASURE_VERBS]);
 const NON_PARTIES = new Set(["Independent", "Nonpartisan"]);
+const EXEC_ABBR = new Map(Object.entries({
+  // WA State
+  "Lt. Governor": "Lieutenant Governor",
+  "Sec. of State": "Secretary of State",
+  "Atty. General": "Attorney General",
+  "Comm. of Pub. Lands": "Commissioner of Public Lands",
+  "Sup. of Pub. Instr.": "Superintendent of Public Instruction",
+  "Insurance Comm.": "Insurance Commissioner",
+
+  // King County
+  "Exec.": "Executive",
+  "Dir. of Elec.": "Director of Elections",
+  "Prsc. Atty.": "Prosecuting Attorney",
+
+  // Seattle
+  "City Atty.": "City Attorney",
+}));
+const MEASURE_ABBR = new Map(Object.entries({
+  "Ref.": "Referendum Measure",
+  ESJR: "Engrossed Senate Joint Resolution",
+  SJR: "Senate Joint Resolution",
+  Charter: "Charter Amendment",
+  "Prop.": "Proposition",
+  "Init.": "Initiative Measure",
+}));
+const STRANGER_STATE = { SEPARATE: 1, NONE: 2, COMBINED: 3 }; // Enum
+const DIACRITIC_ESCAPE = new Map(Object.entries({
+  "m-lorena-gonzález": "m-lorena-gonzalez", // 2017 SCC9
+  "rebecca-saldaña": "rebecca-saldana", // 2018 WA Senate 37
+}));
 
 const MQ_BREAK_REM_1 = 44;
 const MQ_BREAK_REM_2 = 70;
@@ -58,19 +66,12 @@ const COUNTY_PAMPHLETS_URL = "https://www.kingcounty.gov/depts/elections/how-to-
 function findSingleNumber(string) {
   return string.match(/\d+/)[0];
 }
-function expandAbbreviations(map, string) {
-  let fullString = string;
-  map.forEach((value, key) => {
-    fullString = fullString.replace(key, value);
-  });
-  return fullString;
-}
 function expandExecutive(executive) {
-  return expandAbbreviations(EXEC_ABBR, executive);
+  return EXEC_ABBR.get(executive) ?? executive;
 }
 function expandMeasure(measure) {
-  const expanded = expandAbbreviations(MEASURE_ABBR, measure);
-  return expanded.replace("No. ", "No.\u00A0");
+  const [mType, mNum] = measure.split(" "); // Assumes only one space
+  return `${MEASURE_ABBR.get(mType)} No.\u00A0${mNum}`;
 }
 // Actual words -> actual-words
 function fullToKebab(fullText) {
@@ -340,8 +341,8 @@ window.addEventListener("DOMContentLoaded", () => {
           fullRace = `State Senator for Legislative\u00A0District\u00A0${findSingleNumber(race)}`;
         } else if (race.startsWith("Rep")) {
           displayRaceSections("legislature", "state-representative");
-          const [, district, position] = race.match(/(\d+)-(\d+)/);
-          fullRace = `State Representative for Legislative\u00A0District\u00A0${district}, Position\u00A0${position}`;
+          const [dist, pos] = race.match(/\d+/g);
+          fullRace = `State Representative for Legislative\u00A0District\u00A0${dist}, Position\u00A0${pos}`;
         }
         break;
 
@@ -472,7 +473,9 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   async function fetchPortrait(name) {
-    const kebabName = fullToKebab(name);
+    let kebabName = fullToKebab(name);
+    kebabName = DIACRITIC_ESCAPE.get(kebabName) ?? kebabName;
+
     let url;
     if (portraits.has(kebabName)) {
       url = portraits.get(kebabName);
@@ -1470,7 +1473,7 @@ window.addEventListener("DOMContentLoaded", () => {
     // Need to wait for firstRow to be assigned in parseRaceInfoSections
 
     if (smallScreenLayout()) {
-      tippy(firstRow, {
+      const tip = tippy(firstRow, {
         content: "Tap a row for details",
         trigger: "manual",
         showOnCreate: true,
@@ -1480,10 +1483,10 @@ window.addEventListener("DOMContentLoaded", () => {
         zIndex: 0,
       });
       setTimeout(() => {
-        firstRow._tippy.destroy();
+        tip.destroy();
       }, 5000);
     } else if (wideScreenLayout()) {
-      tippy(firstRow, {
+      const tip = tippy(firstRow, {
         content: "Navigate with LR keys",
         trigger: "manual",
         showOnCreate: true,
@@ -1493,7 +1496,7 @@ window.addEventListener("DOMContentLoaded", () => {
         zIndex: 0,
       });
       setTimeout(() => {
-        firstRow._tippy.destroy();
+        tip.destroy();
       }, 3000);
     }
   }
