@@ -1,7 +1,4 @@
 {
-  "name": "seattle-endorse",
-  "version": "1.0.0",
-  "description": "Endorsements from The Seattle Times and The Stranger",
   "private": true,
   "scripts": {
     "test": "python test/export_main.py && wtr test/main.test.js",
@@ -10,8 +7,6 @@
     "py-postbuild": "python postbuild.py",
     "build": "snowpack build && npm run py-postbuild"
   },
-  "author": "andrew-1135",
-  "license": "GPL",
   "dependencies": {
     "tippy.js": "^6.2.7"
   },
@@ -29,7 +24,6 @@
     "postcss": "^8.2.4",
     "postcss-cli": "^8.3.1",
     "postcss-preset-env": "^6.7.0",
-    "sass": "^1.29.0",
     "snowpack": "^3.0.11",
     "svgo": "^1.3.2"
   },

@@ -188,8 +188,9 @@ function removeChildParagraphs(parent) {
 }
 
 // Snowpack's Webpack plugin strips async/defer, so we need this instead
-// snowpack 3.0.11
 // @snowpack/plugin-webpack 2.3.0
+// Fixed in PR#2498, now waiting on npm
+// https://github.com/snowpackjs/snowpack/pull/2498
 window.addEventListener("DOMContentLoaded", () => {
   /* GLOBAL ELEMENTS */
   const electionSelect = document.querySelector("#election-select");
@@ -1478,7 +1479,7 @@ window.addEventListener("DOMContentLoaded", () => {
         trigger: "manual",
         showOnCreate: true,
         hideOnClick: true,
-        duration: [null, 0],
+        duration: [null, 0], // Disappear instantly
         theme: "light-border",
         zIndex: 0,
       });
@@ -1486,17 +1487,17 @@ window.addEventListener("DOMContentLoaded", () => {
         tip.destroy();
       }, 5000);
     } else if (wideScreenLayout()) {
-      const tip = tippy(firstRow, {
-        content: "Navigate with LR keys",
+      const tip = tippy(firstRow.lastChild, {
+        content: "Navigate with Left/Right keys",
         trigger: "manual",
         showOnCreate: true,
         hideOnClick: true,
-        // duration: [null, 0],
+        placement: "top-end",
         theme: "light-border",
         zIndex: 0,
       });
       setTimeout(() => {
-        tip.destroy();
+        tip.hide(); // Hide instead of destroy for fade
       }, 3000);
     }
   }
