@@ -1486,9 +1486,22 @@ window.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
         tip.destroy();
       }, 5000);
+    } else if (mediumWidthLayout()) {
+      const tip = tippy(firstRow.lastChild, {
+        content: "Tap or L/R arrow keys to navigate",
+        trigger: "manual",
+        showOnCreate: true,
+        hideOnClick: true,
+        placement: "top-end",
+        theme: "light-border",
+        zIndex: 0,
+      });
+      setTimeout(() => {
+        tip.hide();
+      }, 5000);
     } else if (wideScreenLayout()) {
       const tip = tippy(firstRow.lastChild, {
-        content: "Navigate with Left/Right keys",
+        content: "Navigate with L/R arrow keys",
         trigger: "manual",
         showOnCreate: true,
         hideOnClick: true,
@@ -1498,7 +1511,7 @@ window.addEventListener("DOMContentLoaded", () => {
       });
       setTimeout(() => {
         tip.hide(); // Hide instead of destroy for fade
-      }, 3000);
+      }, 5000);
     }
   }
   main();

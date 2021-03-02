@@ -91,7 +91,7 @@ main {
     z-index: 10;
 
     &.--offscreen {
-      left: 100vw;
+      transform: translateX(100%);
       visibility: hidden;
     }
   }

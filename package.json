@@ -4,8 +4,8 @@
     "test": "python test/export_main.py && wtr test/main.test.js",
     "start": "snowpack dev",
     "svgo-prebuild": "svgo -f src/images && svgo -f src/images/custom-icons",
-    "py-postbuild": "python postbuild.py",
-    "build": "snowpack build && npm run py-postbuild"
+    "build": "snowpack build",
+    "postbuild": "node postbuild.js"
   },
   "dependencies": {
     "tippy.js": "^6.2.7"
